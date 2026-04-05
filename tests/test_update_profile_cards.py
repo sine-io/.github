@@ -105,5 +105,104 @@ class RenderSvgTests(unittest.TestCase):
         self.assertNotIn("Shell", svg)
 
 
+class RenderReadmeTests(unittest.TestCase):
+    def test_build_byte_of_entries_uses_description_and_homepage(self) -> None:
+        repos = [
+            {
+                "name": "byte-of-nanobot",
+                "fork": False,
+                "description": "Automation guide",
+                "html_url": "https://github.com/sine-io/byte-of-nanobot",
+                "homepage": "https://www.sineio.top/byte-of-nanobot",
+            },
+            {
+                "name": "byte-of-vdbench",
+                "fork": False,
+                "description": "",
+                "html_url": "https://github.com/sine-io/byte-of-vdbench",
+                "homepage": "",
+            },
+            {
+                "name": "byte-of-upstream",
+                "fork": True,
+                "description": "skip me",
+                "html_url": "https://github.com/sine-io/byte-of-upstream",
+                "homepage": "",
+            },
+        ]
+
+        entries = MODULE.build_byte_of_entries(repos)
+
+        self.assertEqual(
+            entries,
+            [
+                {
+                    "emoji": "🤖",
+                    "title": "Byte of Nanobot",
+                    "focus": "Automation guide",
+                    "repo_url": "https://github.com/sine-io/byte-of-nanobot",
+                    "site_url": "https://www.sineio.top/byte-of-nanobot",
+                },
+                {
+                    "emoji": "💾",
+                    "title": "Byte of Vdbench",
+                    "focus": "Block/file storage testing",
+                    "repo_url": "https://github.com/sine-io/byte-of-vdbench",
+                    "site_url": "",
+                },
+            ],
+        )
+
+    def test_render_byte_of_section_includes_links(self) -> None:
+        entries = [
+            {
+                "emoji": "🤖",
+                "title": "Byte of Nanobot",
+                "focus": "Automation guide",
+                "repo_url": "https://github.com/sine-io/byte-of-nanobot",
+                "site_url": "https://www.sineio.top/byte-of-nanobot",
+            },
+            {
+                "emoji": "☁️",
+                "title": "Byte of Cosbench",
+                "focus": "Object storage benchmarking",
+                "repo_url": "https://github.com/sine-io/byte-of-cosbench",
+                "site_url": "",
+            },
+        ]
+
+        section = MODULE.render_byte_of_section(entries)
+
+        self.assertIn("## 🚀 The Byte-of Series", section)
+        self.assertIn("| Series | Focus | Links |", section)
+        self.assertIn("[Repo](https://github.com/sine-io/byte-of-nanobot)", section)
+        self.assertIn("[Site](https://www.sineio.top/byte-of-nanobot)", section)
+        self.assertIn("| ☁️ **Byte of Cosbench** | Object storage benchmarking | [Repo](https://github.com/sine-io/byte-of-cosbench) |", section)
+
+    def test_replace_marked_section_updates_readme_body(self) -> None:
+        readme = """before
+<!-- byte-of-series:start -->
+old
+<!-- byte-of-series:end -->
+after
+"""
+
+        updated = MODULE.replace_marked_section(
+            readme,
+            "byte-of-series",
+            "new section",
+        )
+
+        self.assertEqual(
+            updated,
+            """before
+<!-- byte-of-series:start -->
+new section
+<!-- byte-of-series:end -->
+after
+""",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

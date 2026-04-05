@@ -20,6 +20,18 @@ for ref in "./assets/github-stats-card.svg" "./assets/top-langs-card.svg"; do
   fi
 done
 
+for marker in "<!-- byte-of-series:start -->" "<!-- byte-of-series:end -->"; do
+  if ! grep -q "$marker" "$readme"; then
+    echo "README is missing expected marker: $marker"
+    exit 1
+  fi
+done
+
+if ! grep -q '| Series | Focus | Links |' "$readme"; then
+  echo "README is missing Byte-of links table header"
+  exit 1
+fi
+
 for svg in "$stats_svg" "$langs_svg"; do
   if [[ ! -f "$svg" ]]; then
     echo "Missing SVG asset: $svg"
@@ -46,6 +58,11 @@ fi
 
 if ! grep -q 'contents: write' "$workflow"; then
   echo "Workflow is missing contents: write permission"
+  exit 1
+fi
+
+if ! grep -q 'profile/README.md' "$workflow"; then
+  echo "Workflow is missing profile/README.md update handling"
   exit 1
 fi
 

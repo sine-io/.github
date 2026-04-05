@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import urllib.parse
 import urllib.request
 from urllib.error import HTTPError
@@ -16,6 +17,29 @@ from xml.sax.saxutils import escape
 
 
 API_BASE = "https://api.github.com"
+BYTE_OF_PREFIX = "byte-of-"
+BYTE_OF_MARKER = "byte-of-series"
+DISPLAY_NAME_OVERRIDES = {
+    "ai": "AI",
+    "cosbench": "Cosbench",
+    "cpa": "CPA",
+    "nanobot": "Nanobot",
+    "vdbench": "Vdbench",
+}
+EMOJI_OVERRIDES = {
+    "ai": "🧠",
+    "cosbench": "☁️",
+    "cpa": "📊",
+    "nanobot": "🤖",
+    "vdbench": "💾",
+}
+FOCUS_OVERRIDES = {
+    "ai": "AI tutorial",
+    "cosbench": "Object storage benchmarking",
+    "cpa": "CPA tutorial",
+    "nanobot": "Automation guide",
+    "vdbench": "Block/file storage testing",
+}
 
 
 def fetch_json(url: str, token: str | None = None) -> Any:
@@ -93,6 +117,66 @@ def build_snapshot(
         "forks": sum(repo["forks_count"] for repo in source_repos),
         "top_languages": top_languages,
     }
+
+
+def build_byte_of_entries(repos: list[dict[str, Any]]) -> list[dict[str, str]]:
+    entries: list[dict[str, str]] = []
+    for repo in repos:
+        name = repo["name"]
+        if repo.get("fork") or not name.startswith(BYTE_OF_PREFIX):
+            continue
+
+        slug = name[len(BYTE_OF_PREFIX) :]
+        display_name = DISPLAY_NAME_OVERRIDES.get(slug.lower(), slug.replace("-", " ").title())
+        focus = (repo.get("description") or "").strip() or FOCUS_OVERRIDES.get(
+            slug.lower(),
+            f"{display_name} tutorial",
+        )
+        entries.append(
+            {
+                "emoji": EMOJI_OVERRIDES.get(slug.lower(), "📘"),
+                "title": f"Byte of {display_name}",
+                "focus": focus,
+                "repo_url": repo["html_url"],
+                "site_url": (repo.get("homepage") or "").strip(),
+            }
+        )
+
+    return sorted(entries, key=lambda entry: entry["title"].lower())
+
+
+def render_byte_of_section(entries: list[dict[str, str]]) -> str:
+    lines = [
+        "## 🚀 The Byte-of Series",
+        "",
+        "| Series | Focus | Links |",
+        "| --- | --- | --- |",
+    ]
+
+    if not entries:
+        lines.append("| - | No byte-of repositories found yet. | - |")
+        return "\n".join(lines)
+
+    for entry in entries:
+        links = [f"[Repo]({entry['repo_url']})"]
+        if entry["site_url"]:
+            links.append(f"[Site]({entry['site_url']})")
+        lines.append(
+            f"| {entry['emoji']} **{entry['title']}** | {entry['focus']} | {' · '.join(links)} |"
+        )
+
+    return "\n".join(lines)
+
+
+def replace_marked_section(readme_text: str, marker_name: str, new_content: str) -> str:
+    pattern = re.compile(
+        rf"(<!-- {re.escape(marker_name)}:start -->\n)(.*?)(\n<!-- {re.escape(marker_name)}:end -->)",
+        re.DOTALL,
+    )
+    updated, count = pattern.subn(rf"\1{new_content}\3", readme_text, count=1)
+    if count != 1:
+        raise RuntimeError(f"Could not find unique marker block for {marker_name}")
+    return updated
 
 
 def render_stats_card(snapshot: dict[str, Any], snapshot_date: str) -> str:
@@ -215,14 +299,22 @@ def write_cards(snapshot: dict[str, Any], snapshot_date: str, output_dir: Path) 
     )
 
 
+def update_readme(readme_path: Path, byte_of_entries: list[dict[str, str]]) -> None:
+    readme_text = readme_path.read_text(encoding="utf-8")
+    section = render_byte_of_section(byte_of_entries)
+    updated = replace_marked_section(readme_text, BYTE_OF_MARKER, section)
+    readme_path.write_text(updated, encoding="utf-8")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Regenerate local GitHub profile stats cards.")
     parser.add_argument("--owner", default="sine-io")
     parser.add_argument("--output-dir", default="profile/assets")
+    parser.add_argument("--readme-path", default="profile/README.md")
     parser.add_argument("--snapshot-date")
     args = parser.parse_args()
 
-    token = os.getenv("GITHUB_TOKEN")
+    token = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
     snapshot_date = args.snapshot_date or datetime.now(UTC).date().isoformat()
 
     user = fetch_json(f"{API_BASE}/users/{args.owner}", token=token)
@@ -230,6 +322,7 @@ def main() -> None:
     languages_by_repo = fetch_languages(repos, token=token)
     snapshot = build_snapshot(user, repos, languages_by_repo)
     write_cards(snapshot, snapshot_date, Path(args.output_dir))
+    update_readme(Path(args.readme_path), build_byte_of_entries(repos))
 
     print(
         f"Updated profile cards for {args.owner} on {snapshot_date}: "
