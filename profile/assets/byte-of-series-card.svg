@@ -28,6 +28,8 @@
 
   <text x="36" y="148" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">🤖 Byte of Nanobot</text>
   <text x="360" y="148" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">一份面向零基础用户的 nanobot 教程，带你从"能跑"到"懂原理"。</text>
+  <rect x="752" y="130" width="148" height="24" rx="12" fill="#081728" stroke="#12324B"/>
+  <text x="826" y="146" text-anchor="middle" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" font-weight="700">UPDATED 2026-04-05</text>
   <rect x="912" y="130" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
   <text x="946" y="146" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>
   <rect x="992" y="130" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
@@ -35,11 +37,15 @@
   <line x1="32" y1="168" x2="1068" y2="168" stroke="#12324B" stroke-opacity="0.7"/>
   <text x="36" y="186" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">📊 Byte of CPA</text>
   <text x="360" y="186" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">CPA tutorial</text>
+  <rect x="752" y="168" width="148" height="24" rx="12" fill="#081728" stroke="#12324B"/>
+  <text x="826" y="184" text-anchor="middle" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" font-weight="700">UPDATED 2026-03-27</text>
   <rect x="912" y="168" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
   <text x="946" y="184" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>
   <line x1="32" y1="206" x2="1068" y2="206" stroke="#12324B" stroke-opacity="0.7"/>
   <text x="36" y="224" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">💾 Byte of Vdbench</text>
   <text x="360" y="224" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">Vdbench教程，深入浅出</text>
+  <rect x="752" y="206" width="148" height="24" rx="12" fill="#081728" stroke="#12324B"/>
+  <text x="826" y="222" text-anchor="middle" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" font-weight="700">UPDATED 2026-03-26</text>
   <rect x="912" y="206" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
   <text x="946" y="222" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>
   <rect x="992" y="206" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
@@ -47,6 +53,8 @@
   <line x1="32" y1="244" x2="1068" y2="244" stroke="#12324B" stroke-opacity="0.7"/>
   <text x="36" y="262" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">☁️ Byte of Cosbench</text>
   <text x="360" y="262" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">COSBench教程，深入浅出</text>
+  <rect x="752" y="244" width="148" height="24" rx="12" fill="#081728" stroke="#12324B"/>
+  <text x="826" y="260" text-anchor="middle" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" font-weight="700">UPDATED 2026-03-25</text>
   <rect x="912" y="244" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
   <text x="946" y="260" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>
   <rect x="992" y="244" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
@@ -54,6 +62,8 @@
   <line x1="32" y1="282" x2="1068" y2="282" stroke="#12324B" stroke-opacity="0.7"/>
   <text x="36" y="300" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">🧠 Byte of AI</text>
   <text x="360" y="300" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">深度学习、Pytorch、大模型等课程（课程主要来自B站）笔记、总结、我的思考</text>
+  <rect x="752" y="282" width="148" height="24" rx="12" fill="#081728" stroke="#12324B"/>
+  <text x="826" y="298" text-anchor="middle" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" font-weight="700">UPDATED 2025-11-10</text>
   <rect x="912" y="282" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>
   <text x="946" y="298" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>
 </svg>

@@ -30,10 +30,10 @@
     <text x="30" y="136" fill="#D8F8FF">Python</text>
     <rect x="128" y="128" width="248" height="8" rx="4" fill="#0D2235"/>
     <rect x="128" y="128" width="248" height="8" rx="4" fill="#00E5FF"/>
-    <text x="505" y="136" text-anchor="end" fill="#D8F8FF">36.1%</text>
+    <text x="505" y="136" text-anchor="end" fill="#D8F8FF">36.2%</text>
     <text x="30" y="154" fill="#D8F8FF">Java</text>
     <rect x="128" y="146" width="248" height="8" rx="4" fill="#0D2235"/>
-    <rect x="128" y="146" width="176" height="8" rx="4" fill="#5B8CFF"/>
+    <rect x="128" y="146" width="175" height="8" rx="4" fill="#5B8CFF"/>
     <text x="505" y="154" text-anchor="end" fill="#D8F8FF">25.6%</text>
     <text x="30" y="172" fill="#D8F8FF">Go</text>
     <rect x="128" y="164" width="248" height="8" rx="4" fill="#0D2235"/>

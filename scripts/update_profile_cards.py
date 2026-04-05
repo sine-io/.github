@@ -140,6 +140,7 @@ def build_byte_of_entries(repos: list[dict[str, Any]]) -> list[dict[str, str]]:
                 "focus": focus,
                 "repo_url": repo["html_url"],
                 "site_url": (repo.get("homepage") or "").strip(),
+                "updated_date": (repo.get("updated_at") or "").split("T", 1)[0],
                 "updated_at": (repo.get("updated_at") or ""),
             }
         )
@@ -185,6 +186,8 @@ def render_byte_of_card(entries: list[dict[str, str]], snapshot_date: str) -> st
             [
                 f'  <text x="36" y="{y}" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">{escape(entry["emoji"] + " " + entry["title"])}</text>',
                 f'  <text x="360" y="{y}" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">{escape(focus)}</text>',
+                f'  <rect x="{width - 348}" y="{y - 18}" width="148" height="24" rx="12" fill="#081728" stroke="#12324B"/>',
+                f'  <text x="{width - 274}" y="{y - 2}" text-anchor="middle" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" font-weight="700">UPDATED {escape(entry["updated_date"])}</text>',
                 f'  <rect x="{width - 188}" y="{y - 18}" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>',
                 f'  <text x="{width - 154}" y="{y - 2}" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>',
             ]

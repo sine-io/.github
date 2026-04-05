@@ -145,6 +145,7 @@ class RenderReadmeTests(unittest.TestCase):
                     "focus": "Block/file storage testing",
                     "repo_url": "https://github.com/sine-io/byte-of-vdbench",
                     "site_url": "",
+                    "updated_date": "2026-04-05",
                 },
                 {
                     "emoji": "🤖",
@@ -152,6 +153,7 @@ class RenderReadmeTests(unittest.TestCase):
                     "focus": "Automation guide",
                     "repo_url": "https://github.com/sine-io/byte-of-nanobot",
                     "site_url": "https://www.sineio.top/byte-of-nanobot",
+                    "updated_date": "2026-04-01",
                 },
             ],
         )
@@ -164,6 +166,7 @@ class RenderReadmeTests(unittest.TestCase):
                 "focus": "Automation guide",
                 "repo_url": "https://github.com/sine-io/byte-of-nanobot",
                 "site_url": "https://www.sineio.top/byte-of-nanobot",
+                "updated_date": "2026-04-05",
             },
             {
                 "emoji": "☁️",
@@ -171,6 +174,7 @@ class RenderReadmeTests(unittest.TestCase):
                 "focus": "Object storage benchmarking",
                 "repo_url": "https://github.com/sine-io/byte-of-cosbench",
                 "site_url": "",
+                "updated_date": "2026-04-03",
             },
         ]
 
@@ -217,6 +221,7 @@ class RenderByteOfCardTests(unittest.TestCase):
                 "focus": "Automation guide",
                 "repo_url": "https://github.com/sine-io/byte-of-nanobot",
                 "site_url": "https://www.sineio.top/byte-of-nanobot",
+                "updated_date": "2026-04-05",
             },
             {
                 "emoji": "💾",
@@ -224,6 +229,7 @@ class RenderByteOfCardTests(unittest.TestCase):
                 "focus": "Block/file storage testing",
                 "repo_url": "https://github.com/sine-io/byte-of-vdbench",
                 "site_url": "",
+                "updated_date": "2026-04-03",
             },
         ]
 
@@ -233,6 +239,7 @@ class RenderByteOfCardTests(unittest.TestCase):
         self.assertIn("2 ACTIVE REPOS • SORTED BY LAST UPDATE • 2026-04-05", svg)
         self.assertIn("Byte of Nanobot", svg)
         self.assertIn("Automation guide", svg)
+        self.assertIn("UPDATED 2026-04-05", svg)
         self.assertIn("SITE", svg)
         self.assertIn("REPO", svg)
 
