@@ -177,6 +177,7 @@ class RenderReadmeTests(unittest.TestCase):
         section = MODULE.render_byte_of_section(entries)
 
         self.assertIn("## 🚀 The Byte-of Series", section)
+        self.assertIn('<img src="./assets/byte-of-series-card.svg"', section)
         self.assertIn("| Series | Focus | Links |", section)
         self.assertIn("[Repo](https://github.com/sine-io/byte-of-nanobot)", section)
         self.assertIn("[Site](https://www.sineio.top/byte-of-nanobot)", section)
@@ -205,6 +206,35 @@ new section
 after
 """,
         )
+
+
+class RenderByteOfCardTests(unittest.TestCase):
+    def test_render_byte_of_card_matches_cyber_wave_style(self) -> None:
+        entries = [
+            {
+                "emoji": "🤖",
+                "title": "Byte of Nanobot",
+                "focus": "Automation guide",
+                "repo_url": "https://github.com/sine-io/byte-of-nanobot",
+                "site_url": "https://www.sineio.top/byte-of-nanobot",
+            },
+            {
+                "emoji": "💾",
+                "title": "Byte of Vdbench",
+                "focus": "Block/file storage testing",
+                "repo_url": "https://github.com/sine-io/byte-of-vdbench",
+                "site_url": "",
+            },
+        ]
+
+        svg = MODULE.render_byte_of_card(entries, "2026-04-05")
+
+        self.assertIn("The Byte-of Series", svg)
+        self.assertIn("2 ACTIVE REPOS • SORTED BY LAST UPDATE • 2026-04-05", svg)
+        self.assertIn("Byte of Nanobot", svg)
+        self.assertIn("Automation guide", svg)
+        self.assertIn("SITE", svg)
+        self.assertIn("REPO", svg)
 
 
 if __name__ == "__main__":

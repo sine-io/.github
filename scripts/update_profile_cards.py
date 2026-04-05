@@ -19,6 +19,7 @@ from xml.sax.saxutils import escape
 API_BASE = "https://api.github.com"
 BYTE_OF_PREFIX = "byte-of-"
 BYTE_OF_MARKER = "byte-of-series"
+BYTE_OF_CARD_FILENAME = "byte-of-series-card.svg"
 DISPLAY_NAME_OVERRIDES = {
     "ai": "AI",
     "cosbench": "Cosbench",
@@ -155,9 +156,88 @@ def build_byte_of_entries(repos: list[dict[str, Any]]) -> list[dict[str, str]]:
     return entries
 
 
+def truncate_text(value: str, limit: int) -> str:
+    text = value.strip()
+    if len(text) <= limit:
+        return text
+    return f"{text[: limit - 3].rstrip()}..."
+
+
+def render_byte_of_card(entries: list[dict[str, str]], snapshot_date: str) -> str:
+    width = 1100
+    row_height = 38
+    start_y = 148
+    card_height = 150 + len(entries) * row_height
+    subtitle = f"{len(entries)} ACTIVE REPOS • SORTED BY LAST UPDATE • {snapshot_date}"
+    rows: list[str] = []
+
+    for index, entry in enumerate(entries):
+        y = start_y + index * row_height
+        divider_y = y - 18
+        focus = truncate_text(entry["focus"], 52)
+
+        if index:
+            rows.append(
+                f'  <line x1="32" y1="{divider_y}" x2="{width - 32}" y2="{divider_y}" stroke="#12324B" stroke-opacity="0.7"/>'
+            )
+
+        rows.extend(
+            [
+                f'  <text x="36" y="{y}" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">{escape(entry["emoji"] + " " + entry["title"])}</text>',
+                f'  <text x="360" y="{y}" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">{escape(focus)}</text>',
+                f'  <rect x="{width - 188}" y="{y - 18}" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>',
+                f'  <text x="{width - 154}" y="{y - 2}" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">REPO</text>',
+            ]
+        )
+        if entry["site_url"]:
+            rows.extend(
+                [
+                    f'  <rect x="{width - 108}" y="{y - 18}" width="68" height="24" rx="12" fill="#081728" stroke="#12324B"/>',
+                    f'  <text x="{width - 74}" y="{y - 2}" text-anchor="middle" fill="#4BD6C5" font-family="JetBrains Mono, Consolas, monospace" font-size="11" font-weight="700">SITE</text>',
+                ]
+            )
+
+    rows_markup = "\n".join(rows)
+    return f"""<svg width="{width}" height="{card_height}" viewBox="0 0 {width} {card_height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">sine-io Byte-of series</title>
+  <desc id="desc">A cyber-wave themed overview card for the Byte-of tutorial repositories.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="{width}" y2="{card_height}" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#040814"/>
+      <stop offset="1" stop-color="#0A1124"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="32" y1="0" x2="{width - 32}" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00E5FF"/>
+      <stop offset="1" stop-color="#5B8CFF"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="{width}" height="{card_height}" rx="24" fill="url(#bg)"/>
+  <rect x="1" y="1" width="{width - 2}" height="{card_height - 2}" rx="23" stroke="#12324B" stroke-opacity="0.85"/>
+
+  <path d="M32 54H170" stroke="url(#accent)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
+  <text x="32" y="88" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="22" font-weight="700">The Byte-of Series</text>
+  <text x="32" y="112" fill="#82A8C9" font-family="JetBrains Mono, Consolas, monospace" font-size="12" letter-spacing="2">{escape(subtitle)}</text>
+
+{rows_markup}
+</svg>
+"""
+
+
 def render_byte_of_section(entries: list[dict[str, str]]) -> str:
     lines = [
         "## 🚀 The Byte-of Series",
+        "",
+        '<p align="center">',
+        f'  <img src="./assets/{BYTE_OF_CARD_FILENAME}" alt="Byte-of series overview" width="100%" />',
+        "</p>",
         "",
         "| Series | Focus | Links |",
         "| --- | --- | --- |",
@@ -297,7 +377,12 @@ def render_languages_card(snapshot: dict[str, Any], snapshot_date: str) -> str:
 """
 
 
-def write_cards(snapshot: dict[str, Any], snapshot_date: str, output_dir: Path) -> None:
+def write_cards(
+    snapshot: dict[str, Any],
+    byte_of_entries: list[dict[str, str]],
+    snapshot_date: str,
+    output_dir: Path,
+) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "github-stats-card.svg").write_text(
         render_stats_card(snapshot, snapshot_date),
@@ -305,6 +390,10 @@ def write_cards(snapshot: dict[str, Any], snapshot_date: str, output_dir: Path) 
     )
     (output_dir / "top-langs-card.svg").write_text(
         render_languages_card(snapshot, snapshot_date),
+        encoding="utf-8",
+    )
+    (output_dir / BYTE_OF_CARD_FILENAME).write_text(
+        render_byte_of_card(byte_of_entries, snapshot_date),
         encoding="utf-8",
     )
 
@@ -331,8 +420,9 @@ def main() -> None:
     repos = fetch_repos(args.owner, token=token)
     languages_by_repo = fetch_languages(repos, token=token)
     snapshot = build_snapshot(user, repos, languages_by_repo)
-    write_cards(snapshot, snapshot_date, Path(args.output_dir))
-    update_readme(Path(args.readme_path), build_byte_of_entries(repos))
+    byte_of_entries = build_byte_of_entries(repos)
+    write_cards(snapshot, byte_of_entries, snapshot_date, Path(args.output_dir))
+    update_readme(Path(args.readme_path), byte_of_entries)
 
     print(
         f"Updated profile cards for {args.owner} on {snapshot_date}: "

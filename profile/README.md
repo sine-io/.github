@@ -15,6 +15,10 @@
 <!-- byte-of-series:start -->
 ## 🚀 The Byte-of Series
 
+<p align="center">
+  <img src="./assets/byte-of-series-card.svg" alt="Byte-of series overview" width="100%" />
+</p>
+
 | Series | Focus | Links |
 | --- | --- | --- |
 | 🤖 **Byte of Nanobot** | 一份面向零基础用户的 nanobot 教程，带你从"能跑"到"懂原理"。 | [Repo](https://github.com/sine-io/byte-of-nanobot) · [Site](https://www.sineio.top/byte-of-nanobot) |

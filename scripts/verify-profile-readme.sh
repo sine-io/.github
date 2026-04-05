@@ -5,6 +5,7 @@ set -euo pipefail
 readme="profile/README.md"
 stats_svg="profile/assets/github-stats-card.svg"
 langs_svg="profile/assets/top-langs-card.svg"
+byte_of_svg="profile/assets/byte-of-series-card.svg"
 update_script="scripts/update_profile_cards.py"
 workflow=".github/workflows/update-profile-cards.yml"
 
@@ -13,7 +14,7 @@ if grep -q 'github-readme-stats\.vercel\.app' "$readme"; then
   exit 1
 fi
 
-for ref in "./assets/github-stats-card.svg" "./assets/top-langs-card.svg"; do
+for ref in "./assets/github-stats-card.svg" "./assets/top-langs-card.svg" "./assets/byte-of-series-card.svg"; do
   if ! grep -q "$ref" "$readme"; then
     echo "README is missing expected local asset reference: $ref"
     exit 1
@@ -32,7 +33,7 @@ if ! grep -q '| Series | Focus | Links |' "$readme"; then
   exit 1
 fi
 
-for svg in "$stats_svg" "$langs_svg"; do
+for svg in "$stats_svg" "$langs_svg" "$byte_of_svg"; do
   if [[ ! -f "$svg" ]]; then
     echo "Missing SVG asset: $svg"
     exit 1
@@ -72,6 +73,7 @@ import xml.etree.ElementTree as ET
 for path in (
     "profile/assets/github-stats-card.svg",
     "profile/assets/top-langs-card.svg",
+    "profile/assets/byte-of-series-card.svg",
 ):
     ET.parse(path)
 print("README profile assets verified")

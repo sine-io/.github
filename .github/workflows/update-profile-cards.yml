@@ -38,13 +38,13 @@ jobs:
 
       - name: Commit refreshed cards
         run: |
-          if git diff --quiet -- profile/README.md profile/assets/github-stats-card.svg profile/assets/top-langs-card.svg; then
+          if git diff --quiet -- profile/README.md profile/assets/github-stats-card.svg profile/assets/top-langs-card.svg profile/assets/byte-of-series-card.svg; then
             echo "No profile README or card changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add profile/README.md profile/assets/github-stats-card.svg profile/assets/top-langs-card.svg
+          git add profile/README.md profile/assets/github-stats-card.svg profile/assets/top-langs-card.svg profile/assets/byte-of-series-card.svg
           git commit -m "chore: refresh profile readme assets"
           git push
