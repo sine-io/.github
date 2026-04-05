@@ -34,6 +34,6 @@
 ---
 
 <p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=sine-io&show_icons=true&theme=radical&bg_color=00000000&title_color=00E5FF&icon_color=00E5FF&hide_border=true" alt="GitHub stats" />
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=sine-io&layout=compact&theme=radical&bg_color=00000000&title_color=00E5FF&hide_border=true" alt="Top languages" />
+  <img height="170" src="./assets/github-stats-card.svg" alt="GitHub snapshot card" />
+  <img height="170" src="./assets/top-langs-card.svg" alt="Top languages card" />
 </p>
