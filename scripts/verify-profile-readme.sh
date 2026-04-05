@@ -5,6 +5,8 @@ set -euo pipefail
 readme="profile/README.md"
 stats_svg="profile/assets/github-stats-card.svg"
 langs_svg="profile/assets/top-langs-card.svg"
+update_script="scripts/update_profile_cards.py"
+workflow=".github/workflows/update-profile-cards.yml"
 
 if grep -q 'github-readme-stats\.vercel\.app' "$readme"; then
   echo "README still references github-readme-stats.vercel.app"
@@ -24,6 +26,28 @@ for svg in "$stats_svg" "$langs_svg"; do
     exit 1
   fi
 done
+
+for required in "$update_script" "$workflow"; do
+  if [[ ! -f "$required" ]]; then
+    echo "Missing automation file: $required"
+    exit 1
+  fi
+done
+
+if ! grep -q 'workflow_dispatch:' "$workflow"; then
+  echo "Workflow is missing workflow_dispatch trigger"
+  exit 1
+fi
+
+if ! grep -q 'schedule:' "$workflow"; then
+  echo "Workflow is missing schedule trigger"
+  exit 1
+fi
+
+if ! grep -q 'contents: write' "$workflow"; then
+  echo "Workflow is missing contents: write permission"
+  exit 1
+fi
 
 python3 - <<'PY'
 import xml.etree.ElementTree as ET

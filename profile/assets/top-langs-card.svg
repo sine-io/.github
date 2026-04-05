@@ -1,6 +1,6 @@
 <svg width="540" height="220" viewBox="0 0 540 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">sine-io top languages</title>
-  <desc id="desc">A cyber-wave themed top languages card for sine-io showing Python, Java, Go, TypeScript, and JavaScript across non-fork repositories.</desc>
+  <desc id="desc">A cyber-wave themed top languages card for sine-io showing the current top five languages across non-fork repositories.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="540" y2="220" gradientUnits="userSpaceOnUse">
       <stop stop-color="#040814"/>
@@ -31,22 +31,18 @@
     <rect x="128" y="128" width="248" height="8" rx="4" fill="#0D2235"/>
     <rect x="128" y="128" width="248" height="8" rx="4" fill="#00E5FF"/>
     <text x="505" y="136" text-anchor="end" fill="#D8F8FF">35.9%</text>
-
     <text x="30" y="154" fill="#D8F8FF">Java</text>
     <rect x="128" y="146" width="248" height="8" rx="4" fill="#0D2235"/>
-    <rect x="128" y="146" width="177" height="8" rx="4" fill="#5B8CFF"/>
+    <rect x="128" y="146" width="178" height="8" rx="4" fill="#5B8CFF"/>
     <text x="505" y="154" text-anchor="end" fill="#D8F8FF">25.7%</text>
-
     <text x="30" y="172" fill="#D8F8FF">Go</text>
     <rect x="128" y="164" width="248" height="8" rx="4" fill="#0D2235"/>
-    <rect x="128" y="164" width="154" height="8" rx="4" fill="#4BD6C5"/>
+    <rect x="128" y="164" width="155" height="8" rx="4" fill="#4BD6C5"/>
     <text x="505" y="172" text-anchor="end" fill="#D8F8FF">22.4%</text>
-
     <text x="30" y="190" fill="#D8F8FF">TypeScript</text>
     <rect x="128" y="182" width="248" height="8" rx="4" fill="#0D2235"/>
     <rect x="128" y="182" width="36" height="8" rx="4" fill="#8A7DFF"/>
     <text x="505" y="190" text-anchor="end" fill="#D8F8FF">5.2%</text>
-
     <text x="30" y="208" fill="#D8F8FF">JavaScript</text>
     <rect x="128" y="200" width="248" height="8" rx="4" fill="#0D2235"/>
     <rect x="128" y="200" width="25" height="8" rx="4" fill="#FFC857"/>
