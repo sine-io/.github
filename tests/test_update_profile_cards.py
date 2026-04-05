@@ -114,6 +114,7 @@ class RenderReadmeTests(unittest.TestCase):
                 "description": "Automation guide",
                 "html_url": "https://github.com/sine-io/byte-of-nanobot",
                 "homepage": "https://www.sineio.top/byte-of-nanobot",
+                "updated_at": "2026-04-01T12:00:00Z",
             },
             {
                 "name": "byte-of-vdbench",
@@ -121,6 +122,7 @@ class RenderReadmeTests(unittest.TestCase):
                 "description": "",
                 "html_url": "https://github.com/sine-io/byte-of-vdbench",
                 "homepage": "",
+                "updated_at": "2026-04-05T12:00:00Z",
             },
             {
                 "name": "byte-of-upstream",
@@ -128,6 +130,7 @@ class RenderReadmeTests(unittest.TestCase):
                 "description": "skip me",
                 "html_url": "https://github.com/sine-io/byte-of-upstream",
                 "homepage": "",
+                "updated_at": "2026-04-06T12:00:00Z",
             },
         ]
 
@@ -137,18 +140,18 @@ class RenderReadmeTests(unittest.TestCase):
             entries,
             [
                 {
-                    "emoji": "🤖",
-                    "title": "Byte of Nanobot",
-                    "focus": "Automation guide",
-                    "repo_url": "https://github.com/sine-io/byte-of-nanobot",
-                    "site_url": "https://www.sineio.top/byte-of-nanobot",
-                },
-                {
                     "emoji": "💾",
                     "title": "Byte of Vdbench",
                     "focus": "Block/file storage testing",
                     "repo_url": "https://github.com/sine-io/byte-of-vdbench",
                     "site_url": "",
+                },
+                {
+                    "emoji": "🤖",
+                    "title": "Byte of Nanobot",
+                    "focus": "Automation guide",
+                    "repo_url": "https://github.com/sine-io/byte-of-nanobot",
+                    "site_url": "https://www.sineio.top/byte-of-nanobot",
                 },
             ],
         )

@@ -139,10 +139,20 @@ def build_byte_of_entries(repos: list[dict[str, Any]]) -> list[dict[str, str]]:
                 "focus": focus,
                 "repo_url": repo["html_url"],
                 "site_url": (repo.get("homepage") or "").strip(),
+                "updated_at": (repo.get("updated_at") or ""),
             }
         )
 
-    return sorted(entries, key=lambda entry: entry["title"].lower())
+    entries.sort(
+        key=lambda entry: (
+            entry["updated_at"],
+            entry["title"].lower(),
+        ),
+        reverse=True,
+    )
+    for entry in entries:
+        entry.pop("updated_at", None)
+    return entries
 
 
 def render_byte_of_section(entries: list[dict[str, str]]) -> str:
