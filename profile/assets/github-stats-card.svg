@@ -25,7 +25,7 @@
   <path d="M30 74C56 62 82 38 108 38C134 38 160 74 186 74C212 74 238 38 264 38C290 38 316 74 342 74C368 74 394 38 420 38C446 38 472 74 498 74C506 74 512 71 510 71" stroke="url(#accent)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
 
   <text x="30" y="110" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="22" font-weight="700">GitHub Snapshot</text>
-  <text x="30" y="134" fill="#82A8C9" font-family="JetBrains Mono, Consolas, monospace" font-size="12" letter-spacing="2">PUBLIC API SNAPSHOT • 2026-04-13</text>
+  <text x="30" y="134" fill="#82A8C9" font-family="JetBrains Mono, Consolas, monospace" font-size="12" letter-spacing="2">PUBLIC API SNAPSHOT • 2026-04-14</text>
 
   <g font-family="JetBrains Mono, Consolas, monospace">
     <text x="30" y="172" fill="#8AA6C2" font-size="12">Public repos</text>
