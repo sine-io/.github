@@ -24,7 +24,7 @@
 
   <path d="M32 54H170" stroke="url(#accent)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
   <text x="32" y="88" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="22" font-weight="700">The Byte-of Series</text>
-  <text x="32" y="112" fill="#82A8C9" font-family="JetBrains Mono, Consolas, monospace" font-size="12" letter-spacing="2">5 ACTIVE REPOS • SORTED BY LAST UPDATE • 2026-04-15</text>
+  <text x="32" y="112" fill="#82A8C9" font-family="JetBrains Mono, Consolas, monospace" font-size="12" letter-spacing="2">5 ACTIVE REPOS • SORTED BY LAST UPDATE • 2026-04-16</text>
 
   <text x="36" y="148" fill="#E9FBFF" font-family="JetBrains Mono, Consolas, monospace" font-size="18" font-weight="700">🤖 Byte of Nanobot</text>
   <text x="360" y="148" fill="#8AA6C2" font-family="JetBrains Mono, Consolas, monospace" font-size="13">一份面向零基础用户的 nanobot 教程，带你从"能跑"到"懂原理"。</text>
